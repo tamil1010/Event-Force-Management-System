@@ -76,14 +76,35 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// API Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/events', require('./routes/eventRoutes'));
-app.use('/api/force-members', require('./routes/forceMemberRoutes'));
-app.use('/api/assignments', require('./routes/assignmentRoutes'));
-app.use('/api/notifications', require('./routes/notificationRoutes'));
-app.use('/api/dashboard', require('./routes/dashboardRoutes'));
-app.use('/api/upload', require('./routes/uploadRoutes'));
+// API Routes (Mounted with /api and alias without /api for deployment flexibility)
+const authRoutes = require('./routes/authRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+const forceMemberRoutes = require('./routes/forceMemberRoutes');
+const assignmentRoutes = require('./routes/assignmentRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
+app.use('/api/events', eventRoutes);
+app.use('/events', eventRoutes);
+
+app.use('/api/force-members', forceMemberRoutes);
+app.use('/force-members', forceMemberRoutes);
+
+app.use('/api/assignments', assignmentRoutes);
+app.use('/assignments', assignmentRoutes);
+
+app.use('/api/notifications', notificationRoutes);
+app.use('/notifications', notificationRoutes);
+
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/dashboard', dashboardRoutes);
+
+app.use('/api/upload', uploadRoutes);
+app.use('/upload', uploadRoutes);
 
 // 404 Route Handler
 app.use((req, res, next) => {
